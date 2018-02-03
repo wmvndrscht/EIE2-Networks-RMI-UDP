@@ -1,7 +1,6 @@
 /*
  * Created on 01-Mar-2016
  */
-/* NEED TO INCLUDE EXCEPTIONS!!!!!!!!!!!!!!!*/
 package udp;
 
 import java.io.IOException;
@@ -45,7 +44,7 @@ public class UDPClient {
 			aClient.testLoop(serverAddr, recvPort, countTo); //UDPClient testloop send
 		}
 		catch(Exception e){
-			System.out.println("Error when creating UDP + calling testloop: " + e.toString() );
+			System.out.println("Exception: " + e.toString() );
 		}
 
 	}
@@ -55,7 +54,7 @@ public class UDPClient {
 		try {
 			sendSoc = new DatagramSocket(recvPort);
 		} catch (Exception e) {
-			System.out.println("Error when creating Datagram Socket: " + e.toString() );
+			System.out.println("Exception:  " + e.toString() );
 		}
 	}
 
@@ -79,7 +78,7 @@ public class UDPClient {
 			DatagramPacket pkt = new DatagramPacket(pktData, payloadSize, destAddr, destPort);
 			sendSoc.send(pkt);
 		} catch (Exception e){
-			System.out.println("Error in sending message: " + e.toString() );
+			System.out.println("Exception " + e.toString() );
 		}
 	}
 }

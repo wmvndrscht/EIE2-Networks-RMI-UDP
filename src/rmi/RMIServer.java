@@ -85,13 +85,9 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// expects different things from the URL field.
 		try{
 			Naming.bind(serverURL, server);
-		} catch (AlreadyBoundException e){
-			System.out.println("AlreadyBoundException: "+ e.toString() );
 		} catch (RemoteException e){
 			System.out.println("RemoteException: "+ e.toString() );
-		} catch(MalformedURLException e){
-			System.out.println("MalformedURLException: "+ e.toString() );
-		} catch(Exception e){
+		}catch(Exception e){
 			System.out.println("Exception: "+ e.toString() );
 		}
 	}

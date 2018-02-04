@@ -36,7 +36,7 @@ public class UDPServer {
 			pac = new DatagramPacket(pacData, pacSize);
 
 			try {
-				recvSoc.setSoTimeout(30000);
+				recvSoc.setSoTimeout(5000);
 				recvSoc.receive(pac);
 				processMessage(new String(pac.getData(), 0, pac.getLength()));
 
@@ -139,13 +139,26 @@ public class UDPServer {
 		}
 
 		if (messagelostcount == 0) {
-			s = s + "0";
+			s = "None";
 		}
 
 		System.out.println("LOG REPORT:");
 		System.out.println("SENT:  " + totalMessages + " RECEIVED: " + (totalMessages - messagelostcount)
 				+ " LOST: " + messagelostcount);
-		System.out.println("Error rate: " + ((totalMessages - messagelostcount)) / totalMessages);
+		System.out.println("Error rate: " + ((double)(messagelostcount)) / (double)(totalMessages));
+		System.out.println(s);
+		System.out.println("LOG END");
+		System.exit(0);
+
+	}
+
+}
+		}
+
+		System.out.println("LOG REPORT:");
+		System.out.println("SENT:  " + totalMessages + " RECEIVED: " + (totalMessages - messagelostcount)
+				+ " LOST: " + messagelostcount);
+		System.out.println("Error rate: " + ((double)(messagelostcount)) / (double)(totalMessages));
 		System.out.println(s);
 		System.out.println("LOG END");
 		System.exit(0);

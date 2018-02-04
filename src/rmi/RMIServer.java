@@ -16,6 +16,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 
 	private int totalMessages = -1;
 	private int[] receivedMessages;
+	long timeStart;
+	boolean started = false;
 
 	public RMIServer() throws RemoteException {
 	}
@@ -26,6 +28,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		if(receivedMessages == null){
 			totalMessages = msg.totalMessages;
 			receivedMessages = new int[msg.totalMessages];
+			timeStart = System.currentTimeMillis();
 		}
 
 		// TO-DO: Log receipt of the message
@@ -34,6 +37,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// TO-DO: If this is the last expected message, then identify
 		//        any missing messages
 		if(msg.messageNum >= totalMessages -1){
+			System.out.println("Elapse time in ms: " + (System.currentTimeMillis() - timeStart));
 			LOG();
 		}
 
@@ -87,7 +91,9 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 			Naming.bind(serverURL, server);
 		} catch (RemoteException e){
 			System.out.println("RemoteException: "+ e.toString() );
-		}catch(Exception e){
+		} catch(MalformedURLException e){
+			System.out.println("MalformedURLException: "+ e.toString() );
+		} catch(Exception e){
 			System.out.println("Exception: "+ e.toString() );
 		}
 	}
@@ -110,7 +116,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		System.out.println("Log Report:");
 		System.out.println("Sent:  " + totalMessages + " Received: " + (totalMessages - messagelostcount)
 		+ " Lost: " + messagelostcount);
-		System.out.println("Error rate: " + ((totalMessages - messagelostcount))/totalMessages);
+		System.out.println("Error rate: " + (double)((messagelostcount))/(double)(totalMessages));
 		System.out.println(s);
 		System.out.println("LOG END");
 		System.exit(0);

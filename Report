@@ -1,0 +1,29 @@
+When we are using RMI no packets are discarded, which is what we were expecting as the transport protocol used is TCP(which is connection-oriented). Despite being faster than TCP, UDP has the disadvantage of providing a less reliable transmission of the message for a large number of packets. The first time we tested it we observed that packets were starting to get lost as the total number was exceeding 400, unfortunately, we did not record these results.
+
+a)&b) The following graphs illustrate the dependency between the number of lost packets(with UDP) and the number of packets transmitted. We repeated the measurements at different times of the day, when the lab was busy and when it was almost empty, in order to see how the activity of other users connected to the same network might affect the interaction of the client with the server.
+
+We tested RMI 2 times:
+1) Lab computers one next to each other, empty lab (Graph 1)
+2) Lab computers far from each other, empty lab (Graph 2) 
+
+The error rate is 0 for both cases, all we can say about this is that the response time is affected by the number of packets transmitted and the distance between the PCs.
+
+We tested UDP 4 times:
+1) Lab computers one next to each other, empty lab (Graph 3)
+2) Lab computers far from each other, empty lab (Graph 4)
+3) Lab computers close to each other, busy lab (Graph 5)
+4) Lab computers far from each other, busy lab (Graph 6)
+
+In 1) we can observe an interesting fact: when we transmit 305 packets or more, only the first 304 packets are successfully received no matter what the total number of packets is. It seems like the system is setting a limit of packets for us. [liniar variation in error rate after mt = 304]
+
+In 2) we can see that there is an unpredictable variation in the number of successfully received packets for more than 304 messages, which suggests that the system is less efficient in monitoring our activity and limiting us.
+
+Seeing how similar 3) is to 1) we can conclude that the number of users present in the lab does not affect the error rate. This contradicts what we were initially expecting as we thought that while the network is busy the limit of successfully transmitted messages should be lower than when the lab is almost empty.
+
+In 4) we witnessed again an unpredictable variation in the success rate, as we repeated some of the measurements and got different results each time. This means that physical distance is a factor that affects the error rate. 
+
+As we can infer from the graphs, the number of packets and the distance between the server and client are influencing the results while the number of active users does not seem to matter that much.
+
+d) The easier one to program is RMI because ...
+
+
